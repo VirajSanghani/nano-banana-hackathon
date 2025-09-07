@@ -1,0 +1,1 @@
+Brainstorm innovative consumer project ideas that leverage Gemini 2.5 Flash Image's unique capabilities (character consistency, conversational editing, world knowledge) combined with ElevenLabs audio and Fal AI models. Focus on real-world consumer applications that would impress Google DeepMind judges.

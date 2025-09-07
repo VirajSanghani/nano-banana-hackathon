@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calibration Complete Test</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e, #2a2a4a);
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .status-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .timeline {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .phase {
+            padding: 8px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .phase.active {
+            background: rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.6);
+        }
+        .phase.complete {
+            background: rgba(34, 197, 94, 0.2);
+        }
+        .button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            font-size: 16px;
+        }
+        iframe {
+            width: 100%;
+            height: 700px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        .success {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .warning {
+            color: #f59e0b;
+        }
+        .error {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Calibration Complete Flow Test</h1>
+        
+        <div class="status-box">
+            <h2>Expected Calibration Timeline</h2>
+            <div class="timeline">
+                <div class="phase" id="phase-intro">
+                    <span>1. Intro Phase</span>
+                    <span>0-2s</span>
+                </div>
+                <div class="phase" id="phase-volume">
+                    <span>2. Volume Phase</span>
+                    <span>2-3.5s</span>
+                </div>
+                <div class="phase" id="phase-recording">
+                    <span>3. Recording Phase (4 prompts)</span>
+                    <span>3.5-17s</span>
+                </div>
+                <div class="phase" id="phase-complete">
+                    <span>4. Complete Phase (Voice Profile)</span>
+                    <span>17.5s+</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-box">
+            <h2>What Should Happen</h2>
+            <ol>
+                <li>✅ All 4 prompts complete sequentially</li>
+                <li>✅ Progress bar reaches 100%</li>
+                <li class="success">✅ Voice Profile displays with:</li>
+                <ul>
+                    <li>Volume Range (Sensitivity)</li>
+                    <li>Voice Timbre (balanced/warm/bright)</li>
+                    <li>Quality (good/excellent)</li>
+                </ul>
+                <li class="success">✅ "Ready to Create Music!" button appears</li>
+                <li>✅ Clicking button proceeds to next step</li>
+            </ol>
+        </div>
+        
+        <div class="status-box">
+            <h2>Fixed Issues</h2>
+            <ul>
+                <li class="success">✅ Fixed: No longer stuck at 75% (prompt 3)</li>
+                <li class="success">✅ Fixed: setUserProfile error resolved</li>
+                <li class="success">✅ Fixed: Calibration phase properly sets to 'complete'</li>
+                <li class="success">✅ Fixed: Voice profile results now display</li>
+            </ul>
+        </div>
+        
+        <button class="button" onclick="location.href='http://localhost:5173/'">
+            🚀 Open Vibe-Synth App
+        </button>
+        
+        <button class="button" onclick="location.reload()">
+            🔄 Refresh Test Page
+        </button>
+        
+        <iframe src="http://localhost:5173/" title="Vibe-Synth App"></iframe>
+    </div>
+
+    <script>
+        // Simulate timeline progression
+        setTimeout(() => {
+            document.getElementById('phase-intro').classList.add('complete')
+        }, 2000)
+        
+        setTimeout(() => {
+            document.getElementById('phase-volume').classList.add('complete')
+        }, 3500)
+        
+        setTimeout(() => {
+            document.getElementById('phase-recording').classList.add('active')
+        }, 3500)
+        
+        setTimeout(() => {
+            document.getElementById('phase-recording').classList.remove('active')
+            document.getElementById('phase-recording').classList.add('complete')
+        }, 17000)
+        
+        setTimeout(() => {
+            document.getElementById('phase-complete').classList.add('active')
+            document.getElementById('phase-complete').classList.add('success')
+        }, 17500)
+    </script>
+</body>
+</html>

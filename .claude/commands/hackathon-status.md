@@ -1,0 +1,1 @@
+Show the current hackathon preparation status including completed tasks, pending items, API setup status, and remaining action items before the event.

@@ -1,0 +1,1 @@
+Display all available BMAD agent commands and workflows. This shows how to activate different specialized agents (analyst, PM, architect, dev, QA, SM) for structured development workflow.

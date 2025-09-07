@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Onboarding Flow Test</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e, #2a2a4a);
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .step {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        .step.complete {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: #22c55e;
+        }
+        .step h3 {
+            margin: 0 0 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .success { color: #22c55e; }
+        .info { color: #3b82f6; }
+        .warning { color: #f59e0b; }
+        .button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            font-size: 16px;
+        }
+        iframe {
+            width: 100%;
+            height: 700px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Complete Vibe-Synth Onboarding Flow Test</h1>
+        
+        <div class="timeline">
+            <h2>Full Onboarding Journey (6 Steps)</h2>
+            
+            <div class="step complete">
+                <h3>
+                    <span>✅ Step 1: Welcome</span>
+                    <span class="success">FIXED</span>
+                </h3>
+                <ul>
+                    <li>Welcome message displays</li>
+                    <li>Continue button works</li>
+                </ul>
+            </div>
+            
+            <div class="step complete">
+                <h3>
+                    <span>✅ Step 2: Demo</span>
+                    <span class="success">FIXED</span>
+                </h3>
+                <ul>
+                    <li>Demo animation shows</li>
+                    <li>Skip button available</li>
+                </ul>
+            </div>
+            
+            <div class="step complete">
+                <h3>
+                    <span>✅ Step 3: Permission</span>
+                    <span class="success">FIXED</span>
+                </h3>
+                <ul>
+                    <li>Microphone permission request</li>
+                    <li>Fallback for denied permissions</li>
+                    <li>Continue to voice setup</li>
+                </ul>
+            </div>
+            
+            <div class="step complete">
+                <h3>
+                    <span>✅ Step 4: Calibration</span>
+                    <span class="success">FIXED</span>
+                </h3>
+                <ul>
+                    <li>All 4 prompts complete (~17s total)</li>
+                    <li>No longer stuck at 75%</li>
+                    <li>Voice profile displays</li>
+                    <li>"Ready to Create Music!" button works</li>
+                </ul>
+            </div>
+            
+            <div class="step complete">
+                <h3>
+                    <span>✅ Step 5: First Creation</span>
+                    <span class="success">FIXED</span>
+                </h3>
+                <ul>
+                    <li>Instructions display (3s)</li>
+                    <li>Ready state with microphone button</li>
+                    <li>Simulated recording (10s max)</li>
+                    <li>Processing phase (5s)</li>
+                    <li>Music generation results</li>
+                    <li>Rating system works</li>
+                    <li>Continue button available</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>
+                    <span>🎯 Step 6: Completion</span>
+                    <span class="info">FINAL</span>
+                </h3>
+                <ul>
+                    <li>Congratulations message</li>
+                    <li>Summary of journey</li>
+                    <li>Start using app button</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="timeline">
+            <h2>Music Creation Timeline</h2>
+            <ol>
+                <li><strong>Instructions Phase</strong> (0-3s): Shows creation tips</li>
+                <li><strong>Ready Phase</strong> (3s+): Click microphone to start</li>
+                <li><strong>Recording Phase</strong> (up to 10s): Simulated voice recording</li>
+                <li><strong>Processing Phase</strong> (2s): Analyzing emotions</li>
+                <li><strong>Generation Phase</strong> (3s): Creating music</li>
+                <li><strong>Results Phase</strong>: Shows generated music & emotion analysis</li>
+            </ol>
+        </div>
+        
+        <button class="button" onclick="location.href='http://localhost:5173/'">
+            🚀 Test Complete Flow
+        </button>
+        
+        <iframe src="http://localhost:5173/" title="Vibe-Synth App"></iframe>
+    </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        button { padding: 10px; margin: 5px; }
+        #log { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Connection Test</h1>
+    <button onclick="connect6001()">Connect to ws://localhost:6001</button>
+    <button onclick="connectProxy()">Connect via Proxy</button>
+    <button onclick="sendMessage()">Send Message</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="clearLog()">Clear Log</button>
+    <div id="log"></div>
+    
+    <script>
+        let ws = null;
+        
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = type;
+            entry.textContent = `[${new Date().toISOString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function connect6001() {
+            if (ws) {
+                log('Already connected!', 'error');
+                return;
+            }
+            
+            const url = 'ws://localhost:6001/ws/test_' + Date.now();
+            log('Connecting to: ' + url, 'info');
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = (event) => {
+                    log('✅ Connected successfully!', 'success');
+                    log('ReadyState: ' + ws.readyState, 'info');
+                };
+                
+                ws.onmessage = (event) => {
+                    log('📨 Received: ' + event.data, 'success');
+                };
+                
+                ws.onerror = (event) => {
+                    log('❌ WebSocket error occurred', 'error');
+                    console.error('Error details:', event);
+                };
+                
+                ws.onclose = (event) => {
+                    log(`🔌 Connection closed - Code: ${event.code}, Reason: ${event.reason}`, 'info');
+                    ws = null;
+                };
+            } catch (error) {
+                log('❌ Exception: ' + error.message, 'error');
+            }
+        }
+        
+        function connectProxy() {
+            if (ws) {
+                log('Already connected!', 'error');
+                return;
+            }
+            
+            const url = 'ws://' + window.location.host + '/ws/test_' + Date.now();
+            log('Connecting via proxy to: ' + url, 'info');
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = (event) => {
+                    log('✅ Connected via proxy!', 'success');
+                };
+                
+                ws.onmessage = (event) => {
+                    log('📨 Received: ' + event.data, 'success');
+                };
+                
+                ws.onerror = (event) => {
+                    log('❌ Proxy connection error', 'error');
+                };
+                
+                ws.onclose = (event) => {
+                    log(`🔌 Proxy connection closed - Code: ${event.code}`, 'info');
+                    ws = null;
+                };
+            } catch (error) {
+                log('❌ Exception: ' + error.message, 'error');
+            }
+        }
+        
+        function sendMessage() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                log('Not connected!', 'error');
+                return;
+            }
+            
+            const message = {
+                type: 'find_match',
+                data: { player_name: 'TestPlayer' },
+                timestamp: Date.now()
+            };
+            
+            ws.send(JSON.stringify(message));
+            log('📤 Sent: ' + JSON.stringify(message), 'info');
+        }
+        
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                log('Disconnecting...', 'info');
+            } else {
+                log('Not connected', 'error');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        log('WebSocket test page loaded. Click a connect button to start.', 'info');
+    </script>
+</body>
+</html>

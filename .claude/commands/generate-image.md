@@ -1,0 +1,1 @@
+Generate an image using Gemini 2.5 Flash Image model. Provide a detailed prompt and I'll create the image, save it, and show you the result.

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct WebSocket Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0ff;
+            padding: 20px;
+        }
+        button {
+            background: #0ff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #log {
+            background: #111;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #0ff;
+            min-height: 300px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>DIRECT WebSocket Test - Port 6001</h1>
+    <button onclick="testConnection()">Connect to ws://localhost:6001</button>
+    <button onclick="sendFindMatch()">Send Find Match</button>
+    <button onclick="closeConnection()">Close Connection</button>
+    <div id="log"></div>
+    
+    <script>
+        let ws = null;
+        const playerId = 'browser_test_' + Date.now();
+        
+        function log(msg) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toISOString();
+            logDiv.innerHTML += `[${timestamp}] ${msg}\n`;
+            console.log(msg);
+        }
+        
+        function testConnection() {
+            if (ws) {
+                log('❌ Already connected!');
+                return;
+            }
+            
+            const url = 'ws://localhost:6001/ws/' + playerId;
+            log('🔌 Connecting to: ' + url);
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = function(event) {
+                    log('✅ CONNECTION OPENED!');
+                    log('ReadyState: ' + ws.readyState);
+                };
+                
+                ws.onmessage = function(event) {
+                    log('📨 MESSAGE: ' + event.data);
+                    try {
+                        const msg = JSON.parse(event.data);
+                        log('   Type: ' + msg.type);
+                    } catch (e) {
+                        log('   (non-JSON message)');
+                    }
+                };
+                
+                ws.onerror = function(event) {
+                    log('❌ ERROR occurred');
+                    console.error('WebSocket error:', event);
+                };
+                
+                ws.onclose = function(event) {
+                    log('🔌 CONNECTION CLOSED');
+                    log('   Code: ' + event.code);
+                    log('   Reason: ' + event.reason);
+                    ws = null;
+                };
+                
+            } catch (error) {
+                log('❌ EXCEPTION: ' + error.message);
+                console.error(error);
+            }
+        }
+        
+        function sendFindMatch() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                log('❌ Not connected!');
+                return;
+            }
+            
+            const message = {
+                type: 'find_match',
+                data: {
+                    player_name: 'BrowserTestPlayer',
+                    preferences: {}
+                },
+                timestamp: Date.now(),
+                player_id: playerId
+            };
+            
+            log('📤 Sending: ' + JSON.stringify(message));
+            ws.send(JSON.stringify(message));
+        }
+        
+        function closeConnection() {
+            if (ws) {
+                log('Closing connection...');
+                ws.close();
+            } else {
+                log('Not connected');
+            }
+        }
+        
+        // Auto-connect on load
+        window.onload = function() {
+            log('Page loaded. Click "Connect" to test WebSocket.');
+        };
+    </script>
+</body>
+</html>

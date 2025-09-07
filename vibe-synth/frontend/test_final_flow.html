@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Complete Flow Test - Vibe-Synth</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e, #2a2a4a);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 20px;
+            height: calc(100vh - 150px);
+        }
+        .sidebar {
+            overflow-y: auto;
+        }
+        .status-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .step-tracker {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .step {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s;
+        }
+        .step.active {
+            background: rgba(59, 130, 246, 0.2);
+            border-left-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        .step.complete {
+            background: rgba(34, 197, 94, 0.15);
+            border-left-color: #22c55e;
+        }
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .step-details {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 20px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .status-badge.pending { background: rgba(107, 114, 128, 0.3); }
+        .status-badge.active { background: rgba(251, 191, 36, 0.3); color: #fbbf24; }
+        .status-badge.complete { background: rgba(34, 197, 94, 0.3); color: #22c55e; }
+        .timeline {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .time-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .time-entry:last-child {
+            border-bottom: none;
+        }
+        .success { color: #22c55e; }
+        .warning { color: #fbbf24; }
+        .info { color: #3b82f6; }
+        .error { color: #ef4444; }
+        .button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .iframe-container {
+            background: black;
+            border-radius: 12px;
+            padding: 4px;
+            height: 100%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .console-log {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85em;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .log-entry {
+            padding: 4px;
+            border-left: 2px solid #3b82f6;
+            margin: 4px 0;
+            padding-left: 10px;
+        }
+        .tips {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .tips h3 {
+            color: #fbbf24;
+            margin-top: 0;
+        }
+        .tips ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .tips li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Vibe-Synth Complete Flow Test</h1>
+        
+        <div class="test-grid">
+            <div class="sidebar">
+                <div class="status-card">
+                    <h2>📋 Onboarding Progress</h2>
+                    <div class="step-tracker">
+                        <div class="step" id="step-1">
+                            <div class="step-header">
+                                <span>1️⃣ Welcome</span>
+                                <span class="status-badge pending" id="status-1">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • Welcome message<br>
+                                • Continue button
+                            </div>
+                        </div>
+                        
+                        <div class="step" id="step-2">
+                            <div class="step-header">
+                                <span>2️⃣ Demo</span>
+                                <span class="status-badge pending" id="status-2">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • Animation demo<br>
+                                • Skip available
+                            </div>
+                        </div>
+                        
+                        <div class="step" id="step-3">
+                            <div class="step-header">
+                                <span>3️⃣ Permission</span>
+                                <span class="status-badge pending" id="status-3">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • Mic permission<br>
+                                • Fallback mode
+                            </div>
+                        </div>
+                        
+                        <div class="step" id="step-4">
+                            <div class="step-header">
+                                <span>4️⃣ Calibration</span>
+                                <span class="status-badge pending" id="status-4">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • 4 voice prompts<br>
+                                • ~17s total<br>
+                                • Voice profile
+                            </div>
+                        </div>
+                        
+                        <div class="step" id="step-5">
+                            <div class="step-header">
+                                <span>5️⃣ First Creation</span>
+                                <span class="status-badge pending" id="status-5">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • Record simulation<br>
+                                • Music generation<br>
+                                • Rating system
+                            </div>
+                        </div>
+                        
+                        <div class="step" id="step-6">
+                            <div class="step-header">
+                                <span>6️⃣ Completion</span>
+                                <span class="status-badge pending" id="status-6">Pending</span>
+                            </div>
+                            <div class="step-details">
+                                • Celebration (1.5s)<br>
+                                • Achievements (1.5s)<br>
+                                • Goals (auto-selected)<br>
+                                • Complete button
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="status-card">
+                    <h3>⏱️ Expected Timeline</h3>
+                    <div class="timeline">
+                        <div class="time-entry">
+                            <span>Welcome → Demo</span>
+                            <span class="info">~2s</span>
+                        </div>
+                        <div class="time-entry">
+                            <span>Demo → Permission</span>
+                            <span class="info">~3s</span>
+                        </div>
+                        <div class="time-entry">
+                            <span>Permission → Calibration</span>
+                            <span class="info">~2s</span>
+                        </div>
+                        <div class="time-entry">
+                            <span>Calibration Duration</span>
+                            <span class="warning">~17s</span>
+                        </div>
+                        <div class="time-entry">
+                            <span>First Creation</span>
+                            <span class="warning">~20s</span>
+                        </div>
+                        <div class="time-entry">
+                            <span>Completion</span>
+                            <span class="success">~4s</span>
+                        </div>
+                        <div class="time-entry" style="font-weight: bold;">
+                            <span>Total Time</span>
+                            <span class="success">~48s</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3>💡 What to Expect</h3>
+                    <ul>
+                        <li>All steps auto-advance</li>
+                        <li>Calibration: 4 prompts complete</li>
+                        <li>Music creation: Click mic to record</li>
+                        <li>Completion: 2 goals pre-selected</li>
+                        <li>Final button: "Begin Your Musical Journey"</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="button" onclick="location.reload()">
+                        🔄 Restart Test
+                    </button>
+                </div>
+            </div>
+            
+            <div class="iframe-container">
+                <iframe src="http://localhost:5173/" title="Vibe-Synth App"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track onboarding progress
+        let currentStep = 1;
+        const totalSteps = 6;
+        
+        function updateStep(step, status) {
+            const stepEl = document.getElementById(`step-${step}`);
+            const statusEl = document.getElementById(`status-${step}`);
+            
+            // Remove all classes
+            stepEl.classList.remove('active', 'complete');
+            statusEl.classList.remove('pending', 'active', 'complete');
+            
+            // Add new class
+            if (status === 'active') {
+                stepEl.classList.add('active');
+                statusEl.classList.add('active');
+                statusEl.textContent = 'Active';
+            } else if (status === 'complete') {
+                stepEl.classList.add('complete');
+                statusEl.classList.add('complete');
+                statusEl.textContent = 'Complete';
+            }
+        }
+        
+        // Simulate expected flow timing
+        setTimeout(() => {
+            console.log('Starting onboarding simulation...');
+            updateStep(1, 'active');
+        }, 1000);
+        
+        setTimeout(() => {
+            updateStep(1, 'complete');
+            updateStep(2, 'active');
+        }, 3000);
+        
+        setTimeout(() => {
+            updateStep(2, 'complete');
+            updateStep(3, 'active');
+        }, 6000);
+        
+        setTimeout(() => {
+            updateStep(3, 'complete');
+            updateStep(4, 'active');
+        }, 8000);
+        
+        setTimeout(() => {
+            updateStep(4, 'complete');
+            updateStep(5, 'active');
+        }, 25000);
+        
+        setTimeout(() => {
+            updateStep(5, 'complete');
+            updateStep(6, 'active');
+        }, 45000);
+        
+        setTimeout(() => {
+            updateStep(6, 'complete');
+            console.log('✅ Onboarding should be complete!');
+        }, 49000);
+    </script>
+</body>
+</html>

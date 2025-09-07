@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Connection Test</title>
+</head>
+<body>
+    <h1>WebSocket Connection Test</h1>
+    <div id="status">Not connected</div>
+    <button onclick="connect()">Connect to Server</button>
+    <button onclick="sendFindMatch()">Send Find Match</button>
+    <div id="messages"></div>
+    
+    <script>
+        let ws = null;
+        const playerId = 'test_player_' + Date.now();
+        
+        function log(message) {
+            const div = document.getElementById('messages');
+            div.innerHTML += '<div>' + new Date().toISOString() + ': ' + message + '</div>';
+            console.log(message);
+        }
+        
+        function connect() {
+            const wsUrl = 'ws://localhost:6000/ws/' + playerId;
+            log('Connecting to: ' + wsUrl);
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = function() {
+                document.getElementById('status').innerText = 'Connected!';
+                log('WebSocket connected!');
+            };
+            
+            ws.onmessage = function(event) {
+                log('Received: ' + event.data);
+                const message = JSON.parse(event.data);
+                
+                if (message.type === 'player_connect') {
+                    log('✅ Player connected successfully!');
+                } else if (message.type === 'match_found') {
+                    log('🎮 Match found!');
+                } else if (message.type === 'match_start') {
+                    log('🚀 Match starting!');
+                }
+            };
+            
+            ws.onerror = function(error) {
+                log('Error: ' + error);
+                document.getElementById('status').innerText = 'Error!';
+            };
+            
+            ws.onclose = function() {
+                log('Connection closed');
+                document.getElementById('status').innerText = 'Disconnected';
+            };
+        }
+        
+        function sendFindMatch() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    type: 'find_match',
+                    data: {
+                        player_name: 'TestPlayer',
+                        preferences: {}
+                    },
+                    timestamp: Date.now(),
+                    player_id: playerId
+                };
+                log('Sending: ' + JSON.stringify(message));
+                ws.send(JSON.stringify(message));
+            } else {
+                log('Not connected!');
+            }
+        }
+    </script>
+</body>
+</html>

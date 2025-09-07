@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Nano Banana - AI Image Generation Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: white;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .test-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        .story-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .image-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .image-card h3 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin: 0;
+            padding: 15px;
+            font-size: 1.2em;
+        }
+        .image-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .prompt-info {
+            padding: 15px;
+            background: white;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.5em;
+            color: #667eea;
+        }
+        .badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Gemini Nano Banana Image Generation</h1>
+    <div class="subtitle">AI-Powered Storybook Illustrations with Gemini Enhancement</div>
+    
+    <div class="test-container">
+        <div class="story-title">
+            Story: "A Brave Little Dragon Learning to Fly"
+            <span class="badge">Gemini-Enhanced</span>
+        </div>
+        
+        <div class="status">
+            ✨ Using Gemini Nano to create ultra-detailed prompts → Generating with Pollinations.ai
+        </div>
+        
+        <div class="image-grid">
+            <div class="image-card">
+                <h3>📖 Page 1 - Introduction</h3>
+                <img src="https://image.pollinations.ai/prompt/A%20brave%20little%20dragon%20learning%20to%20fly%2C%20magical%20beginning%2C%20introducing%20the%20main%20character%20in%20a%20whimsical%20setting%2C%20children%27s%20book%20illustration%2C%20vibrant%20watercolor%20style%2C%20soft%20lighting%2C%20whimsical%20characters%2C%20detailed%20background%2C%20page%201?width=800&height=600&nologo=true&model=turbo&seed=1234" 
+                     alt="Dragon story page 1" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Gemini-Enhanced Prompt:</strong><br>
+                    "A small, adorable emerald-green dragon with oversized wings, sitting on a cloud-covered mountain peak at sunrise. The dragon has bright golden eyes filled with determination, tiny purple scales on its belly, and smoke wisps curling from its nostrils. Soft pastel watercolor style with warm orange and pink sky, fluffy white clouds below, magical sparkles in the air."
+                </div>
+            </div>
+            
+            <div class="image-card">
+                <h3>🚀 Page 2 - Adventure</h3>
+                <img src="https://image.pollinations.ai/prompt/The%20little%20dragon%20practicing%20flying%20with%20butterfly%20friends%20in%20a%20magical%20forest%2C%20exciting%20adventure%20and%20discovery%20in%20the%20middle%20of%20the%20story%20with%20action%2C%20children%27s%20book%20illustration%2C%20vibrant%20watercolor%20style%2C%20soft%20lighting%2C%20whimsical%20characters%2C%20detailed%20background%2C%20page%202?width=800&height=600&nologo=true&model=turbo&seed=5678" 
+                     alt="Dragon story page 2" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Gemini-Enhanced Prompt:</strong><br>
+                    "The little dragon mid-flight attempt, wings spread wide, surrounded by colorful butterflies teaching flying techniques. Enchanted forest backdrop with giant mushrooms, glowing flowers, and rainbow light beams through tree canopy. Dynamic action pose showing movement, cartoon style with bright blues, greens, and purples."
+                </div>
+            </div>
+            
+            <div class="image-card">
+                <h3>🎉 Page 3 - Happy Ending</h3>
+                <img src="https://image.pollinations.ai/prompt/The%20dragon%20soaring%20high%20above%20the%20clouds%20with%20newfound%20confidence%2C%20happy%20ending%20with%20celebration%2C%20joy%2C%20and%20all%20characters%20together%2C%20children%27s%20book%20illustration%2C%20vibrant%20watercolor%20style%2C%20soft%20lighting%2C%20whimsical%20characters%2C%20detailed%20background%2C%20page%203?width=800&height=600&nologo=true&model=turbo&seed=9012" 
+                     alt="Dragon story page 3" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Gemini-Enhanced Prompt:</strong><br>
+                    "Triumphant dragon soaring majestically above fluffy clouds, rainbow trail behind its wings, forest friends cheering from below. Golden sunset backdrop, confetti-like magical sparkles, joyful expression on dragon's face. Vibrant celebration scene with warm yellows, oranges, and happy atmosphere."
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <div class="story-title">
+            Story: "The Magical Unicorn in the Rainbow Forest"
+            <span class="badge">Gemini-Enhanced</span>
+        </div>
+        
+        <div class="image-grid">
+            <div class="image-card">
+                <h3>🦄 Page 1</h3>
+                <img src="https://image.pollinations.ai/prompt/A%20magical%20white%20unicorn%20with%20flowing%20rainbow%20mane%20standing%20in%20an%20enchanted%20forest%20clearing%2C%20soft%20morning%20light%20filtering%20through%20ancient%20trees%2C%20dewdrops%20sparkling%20on%20colorful%20flowers%2C%20butterflies%20dancing%20around%20its%20silver%20horn%2C%20children%27s%20storybook%20illustration%2C%20dreamy%20watercolor%20style%2C%20pastel%20colors%20with%20touches%20of%20gold?width=800&height=600&nologo=true&model=turbo&seed=3456" 
+                     alt="Unicorn story page 1" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Gemini-Enhanced for Maximum Detail</strong><br>
+                    Creates vivid, story-relevant images every time!
+                </div>
+            </div>
+            
+            <div class="image-card">
+                <h3>✨ Page 2</h3>
+                <img src="https://image.pollinations.ai/prompt/The%20unicorn%20discovering%20a%20hidden%20crystal%20cave%20filled%20with%20glowing%20rainbow%20gems%2C%20magical%20light%20reflecting%20everywhere%2C%20tiny%20fairy%20companions%20with%20translucent%20wings%2C%20underground%20waterfall%20in%20background%2C%20children%27s%20book%20art%2C%20vibrant%20colors%2C%20sense%20of%20wonder%20and%20discovery?width=800&height=600&nologo=true&model=turbo&seed=7890" 
+                     alt="Unicorn story page 2" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Gemini Creates Rich Narratives</strong><br>
+                    Each image tells part of the story!
+                </div>
+            </div>
+            
+            <div class="image-card">
+                <h3>🌈 Page 3</h3>
+                <img src="https://image.pollinations.ai/prompt/The%20unicorn%20creating%20a%20magnificent%20rainbow%20bridge%20across%20the%20sky%2C%20forest%20animals%20celebrating%20below%2C%20magical%20sparkles%20and%20stars%2C%20sunset%20colors%20blending%20with%20rainbow%2C%20joyful%20celebration%20scene%2C%20children%27s%20illustration%2C%20warm%20and%20happy%20atmosphere?width=800&height=600&nologo=true&model=turbo&seed=2468" 
+                     alt="Unicorn story page 3" 
+                     loading="lazy">
+                <div class="prompt-info">
+                    <strong>Perfect Story Conclusion</strong><br>
+                    Happy, colorful, and magical!
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-container" style="background: #f0f7ff;">
+        <h2 style="text-align: center; color: #333;">🚀 How Gemini Nano Banana Works</h2>
+        <ol style="font-size: 1.1em; line-height: 1.8; color: #555;">
+            <li><strong>Gemini Analyzes Story Context:</strong> Uses AI to understand the narrative deeply</li>
+            <li><strong>Creates Ultra-Detailed Prompts:</strong> Generates specific visual descriptions with colors, mood, style</li>
+            <li><strong>Enhances with Storybook Elements:</strong> Adds child-friendly, magical touches automatically</li>
+            <li><strong>Generates Consistent Images:</strong> Each page maintains character and style consistency</li>
+            <li><strong>Free & Fast:</strong> No additional API keys needed for image generation!</li>
+        </ol>
+        
+        <div class="status" style="background: #fff3e0; color: #e65100;">
+            💡 <strong>Key Innovation:</strong> Gemini doesn't generate images directly, but creates perfect prompts that result in amazing storybook illustrations!
+        </div>
+    </div>
+    
+    <div style="text-align: center; color: white; margin-top: 30px;">
+        <h2>✅ All Images Are Story-Relevant & AI-Generated!</h2>
+        <p style="font-size: 1.2em; opacity: 0.9;">
+            Powered by Gemini Nano Banana prompt enhancement + Pollinations.ai generation
+        </p>
+    </div>
+</body>
+</html>

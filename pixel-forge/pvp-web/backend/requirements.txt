@@ -1,0 +1,28 @@
+# Core API dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+websockets==12.0
+python-socketio==5.10.0
+python-multipart==0.0.6
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# AI Services
+google-generativeai==0.3.2
+python-jose[cryptography]==3.3.0
+
+# Image processing
+Pillow==10.1.0
+numpy==1.26.0
+
+# Cache and utilities
+redis==5.0.1
+asyncio-mqtt==0.13.0
+python-dotenv==1.0.0
+httpx==0.25.0
+aiofiles==23.2.0
+
+# Development
+pytest==7.4.0
+pytest-asyncio==0.21.0
+black==23.11.0

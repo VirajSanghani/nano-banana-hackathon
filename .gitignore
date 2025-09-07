@@ -39,6 +39,26 @@ Thumbs.db
 .env.test.local
 .env.production.local
 
+# Python
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+*.pyo
+.venv/
+
+# Local outputs and temp artifacts
+outputs/
+tmp_*.html
+chunks/
+chunk_list.txt
+details_chunk.js
+
+# Public test files that hardcode API keys (exclude from git)
+storybook-ai/storybook-ai/public/test-gemini-nano.html
+storybook-ai/storybook-ai/public/gemini-only-test.html
+
 # Build outputs
 dist/
 build/

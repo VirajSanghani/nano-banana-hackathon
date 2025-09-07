@@ -1,0 +1,1 @@
+Run the API test script to verify all APIs are working correctly. This will test Gemini, ElevenLabs, and Fal AI connections.
