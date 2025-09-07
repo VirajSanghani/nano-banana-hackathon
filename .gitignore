@@ -63,3 +63,5 @@ storybook-ai/storybook-ai/public/gemini-only-test.html
 dist/
 build/
 *.tar.gz
+
+storybook-ai/storybook-ai/README-FEATURES.md
