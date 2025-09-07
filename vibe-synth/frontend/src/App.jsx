@@ -5,8 +5,8 @@ import useVibeStore from './stores/vibeStore'
 // Core Components
 import { AppErrorBoundary } from './components/core/ErrorBoundary'
 
-// Onboarding Components
-import OnboardingFlow from './components/onboarding/OnboardingFlow'
+// Live Components
+import LiveVoiceSynth from './components/live/LiveVoiceSynth'
 
 // Audio & Processing
 import AudioProcessor from './components/audio/AudioProcessor'
@@ -176,235 +176,38 @@ function App() {
     )
   }
   
-  // Onboarding State
-  if (appState === 'onboarding') {
+  // Live Experience State (replacing onboarding)
+  if (appState === 'onboarding' || appState === 'main') {
     return (
       <AppErrorBoundary>
-        <OnboardingFlow onComplete={handleOnboardingComplete} />
+        <LiveVoiceSynth />
       </AppErrorBoundary>
     )
   }
   
-  // Main Application State
+  // Global Notifications (overlay on all states)
   return (
-    <AppErrorBoundary>
-      <div className="min-h-screen bg-vibe-dark text-white relative overflow-hidden">
-        
-        {/* Background Particle System */}
-        <div className="absolute inset-0 z-0">
-          <ParticleSystem
-            audioData={audioData}
-            isActive={!!audioData}
-            emotionState={emotionData?.primaryEmotion || 'neutral'}
-            className="w-full h-full"
-            particleCount={30}
-          />
-        </div>
-        
-        {/* Main Content */}
-        <div className="relative z-10 min-h-screen">
-          
-          {/* Header */}
-          <header className="p-6 bg-black/20 backdrop-blur-sm border-b border-gray-700/50">
-            <div className="max-w-6xl mx-auto flex items-center justify-between">
-              <motion.div 
-                className="flex items-center gap-4"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-vibe-purple to-vibe-blue rounded-full flex items-center justify-center">
-                  <div className="text-2xl">🎵</div>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-vibe-purple to-vibe-blue bg-clip-text text-transparent">
-                    Vibe-Synth
-                  </h1>
-                  <p className="text-sm text-gray-400">Transform your voice into music</p>
-                </div>
-              </motion.div>
-              
-              <div className="flex items-center gap-4">
-                {/* User greeting */}
-                <div className="text-right">
-                  <p className="text-sm text-gray-400">Welcome back</p>
-                  <p className="font-medium">
-                    {user.profile?.name || 'Music Creator'}
-                  </p>
-                </div>
-                
-                {/* Settings/Profile button */}
-                <motion.button
-                  className="w-10 h-10 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-gray-700/50 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => showNotification('info', 'Settings panel coming soon!', 2000)}
-                >
-                  ⚙️
-                </motion.button>
-              </div>
-            </div>
-          </header>
-          
-          {/* Main Content Area */}
-          <main className="flex-1 p-6">
-            <div className="max-w-6xl mx-auto">
-              
-              {/* Welcome Message */}
-              <motion.div 
-                className="text-center mb-12"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                  Ready to Create Music?
-                </h2>
-                <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                  Speak your emotions and watch them transform into beautiful, unique musical compositions.
-                </p>
-              </motion.div>
-              
-              {/* Control Panel */}
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                {/* Audio Processing */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <AudioProcessor
-                    onAudioData={handleAudioData}
-                    isActive={true}
-                  />
-                </motion.div>
-                
-                {/* Emotion Detection */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  <EmotionDetector
-                    audioData={audioData}
-                    onEmotionDetected={handleEmotionDetected}
-                    isActive={true}
-                  />
-                </motion.div>
-              </div>
-              
-              {/* Music Creation Button */}
-              <div className="text-center">
-                <motion.button
-                  className="px-12 py-6 bg-gradient-to-r from-vibe-purple to-vibe-blue text-white font-bold rounded-2xl text-xl hover:shadow-2xl hover:shadow-purple-500/25 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    trackEvent('create_music_clicked')
-                    showNotification('info', 'Music generation coming soon! Keep speaking to see emotion detection.', 3000)
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                >
-                  🎤 Start Creating Music
-                </motion.button>
-                
-                <motion.p 
-                  className="text-sm text-gray-400 mt-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1 }}
-                >
-                  Click the button above and start speaking to begin your musical creation
-                </motion.p>
-              </div>
-            </div>
-          </main>
-          
-          {/* Footer */}
-          <footer className="p-6 bg-black/20 backdrop-blur-sm border-t border-gray-700/50">
-            <div className="max-w-6xl mx-auto text-center text-sm text-gray-400">
-              <p>© 2025 Vibe-Synth. Transform your emotions into music. 🎵</p>
-            </div>
-          </footer>
-        </div>
-        
-        {/* Development Debug Panel */}
-        {process.env.NODE_ENV === 'development' && showDebugPanel && (
+    <>
+      {/* Global Notifications */}
+      <AnimatePresence>
+        {ui.notification && (
           <motion.div
-            className="fixed top-4 right-4 w-80 bg-black/90 backdrop-blur-sm p-4 rounded-lg border border-gray-600 text-xs max-h-96 overflow-y-auto z-50"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            className={`fixed top-6 right-6 p-4 rounded-lg shadow-lg z-50 ${
+              ui.notification.type === 'success' ? 'bg-green-600' :
+              ui.notification.type === 'error' ? 'bg-red-600' :
+              ui.notification.type === 'warning' ? 'bg-yellow-600' :
+              'bg-blue-600'
+            }`}
+            initial={{ opacity: 0, x: 20, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 20, scale: 0.8 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="flex justify-between items-center mb-3">
-              <h4 className="font-semibold text-yellow-400">Debug Panel</h4>
-              <button
-                onClick={() => setShowDebugPanel(false)}
-                className="text-gray-400 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-            
-            <div className="space-y-3">
-              <div>
-                <h5 className="font-medium text-blue-400">App State:</h5>
-                <p className="text-white">{appState}</p>
-              </div>
-              
-              {audioData && (
-                <div>
-                  <h5 className="font-medium text-green-400">Audio Data:</h5>
-                  <pre className="text-gray-300 whitespace-pre-wrap break-all">
-                    {JSON.stringify(audioData.metrics, null, 2)}
-                  </pre>
-                </div>
-              )}
-              
-              {emotionData && (
-                <div>
-                  <h5 className="font-medium text-purple-400">Emotion Data:</h5>
-                  <pre className="text-gray-300 whitespace-pre-wrap break-all">
-                    {JSON.stringify({
-                      primary: emotionData.primaryEmotion,
-                      confidence: emotionData.confidence,
-                      secondary: emotionData.secondaryEmotions
-                    }, null, 2)}
-                  </pre>
-                </div>
-              )}
-            </div>
-            
-            <div className="mt-4 pt-3 border-t border-gray-600">
-              <p className="text-gray-400">
-                Press <kbd className="bg-gray-700 px-1 rounded">Ctrl+Shift+D</kbd> to toggle
-              </p>
-            </div>
+            <p className="text-white font-medium">{ui.notification.message}</p>
           </motion.div>
         )}
-        
-        {/* Global Notifications */}
-        <AnimatePresence>
-          {ui.notification && (
-            <motion.div
-              className={`fixed top-6 right-6 p-4 rounded-lg shadow-lg z-50 ${
-                ui.notification.type === 'success' ? 'bg-green-600' :
-                ui.notification.type === 'error' ? 'bg-red-600' :
-                ui.notification.type === 'warning' ? 'bg-yellow-600' :
-                'bg-blue-600'
-              }`}
-              initial={{ opacity: 0, x: 20, scale: 0.8 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 20, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-            >
-              <p className="text-white font-medium">{ui.notification.message}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </AppErrorBoundary>
+      </AnimatePresence>
+    </>
   )
 }
 
